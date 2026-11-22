@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn Selenium WebDriver element targeting in Ruby through 1000 hands-on diner-themed levels.">
+  <title>Selenium Ruby Diner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="language-picker" id="language-picker">
+        <button class="brand-mark" id="language-toggle" type="button" aria-label="Choose a language" aria-haspopup="menu" aria-expanded="false" title="Choose a language">SR</button>
+        <div class="language-menu" id="language-menu" role="menu" aria-label="Languages" hidden></div>
+      </div>
+      <div>
+        <p class="brand-kicker" id="brand-kicker">Selenium WebDriver &middot; Ruby</p>
+        <h1 class="brand-title" id="brand-title">Selenium Ruby Diner</h1>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <span class="topbar-stat"><strong id="top-completed">0</strong> / <span id="top-total">1000</span> levels</span>
+      <span class="topbar-divider" aria-hidden="true"></span>
+      <span class="topbar-tag">Open daily &middot; Selectors hot</span>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Level navigation">
+      <div class="sidebar-head">
+        <div>
+          <p class="eyebrow">Order up</p>
+          <h2>Level map</h2>
+        </div>
+        <button class="icon-btn" id="sidebar-close" type="button" title="Close level map" aria-label="Close level map">&times;</button>
+      </div>
+
+      <div class="overall-progress">
+        <div class="overall-progress-row">
+          <span>Diner progress</span>
+          <strong id="overall-progress-label">0%</strong>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="overall-progress-bar">
+          <span id="overall-progress-fill"></span>
+        </div>
+      </div>
+
+      <nav id="chapter-nav" class="chapter-nav"></nav>
+
+      <div class="sidebar-footer">
+        <button class="text-btn danger" id="reset-progress" type="button">Reset all progress</button>
+        <p class="sidebar-note">Progress and drafts stay in this browser.</p>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <button class="sidebar-open" id="sidebar-open" type="button" aria-label="Open level map">
+        <span aria-hidden="true">&#9776;</span> Levels
+      </button>
+
+      <section class="level-header" aria-labelledby="level-title">
+        <div class="level-header-copy">
+          <p class="eyebrow" id="chapter-label">Chapter</p>
+          <h2 id="level-title">Loading level</h2>
+          <p class="level-task" id="level-task"></p>
+        </div>
+        <div class="level-badges">
+          <span class="level-counter" id="level-counter">Level 1 of 1000</span>
+          <span class="completion-pill" id="completion-pill">In progress</span>
+        </div>
+      </section>
+
+      <section class="coach-row" aria-label="Level help">
+        <details class="coach">
+          <summary><span class="coach-icon" aria-hidden="true">?</span> Hint</summary>
+          <div class="coach-body" id="hint-content">No hint for this one. Read the task closely and inspect the scene.</div>
+        </details>
+        <details class="coach">
+          <summary><span class="coach-icon" aria-hidden="true">&lt;/&gt;</span> Reference</summary>
+          <div class="coach-body" id="reference-content">No reference snippet for this level.</div>
+        </details>
+        <details class="coach">
+          <summary><span class="coach-icon" aria-hidden="true">i</span> Selenium cheat sheet</summary>
+          <div class="coach-body cheat-sheet" id="cheat-sheet">
+            <code>driver.find_element(:css, ".plate")</code>
+            <code>driver.find_elements(id: "coffee")</code>
+            <code>driver.find_element(:xpath, "//div[@id='coffee']")</code>
+            <code>element.text</code>
+            <code>element.attribute("data-price")</code>
+            <code>element.click</code>
+            <code>element.send_keys("Ada")</code>
+            <code>Select.new(element).select_by(:value, "large")</code>
+            <code>wait = Selenium::WebDriver::Wait.new(timeout: 3)</code>
+          </div>
+        </details>
+      </section>
+
+      <div class="work-grid">
+        <section class="panel editor-panel" aria-labelledby="editor-heading">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Your tab</p>
+              <h3 id="editor-heading">Ruby script</h3>
+            </div>
+            <div class="panel-actions">
+              <button class="btn ghost" id="reset-code" type="button">Starter</button>
+              <button class="btn primary" id="run-code" type="button">
+                Run <kbd>Ctrl</kbd><kbd>&crarr;</kbd>
+              </button>
+            </div>
+          </div>
+          <div class="editor-shell">
+            <pre class="line-numbers" id="line-numbers" aria-hidden="true">1</pre>
+            <textarea id="editor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Ruby code editor"></textarea>
+          </div>
+          <div class="feedback" id="feedback" role="status" aria-live="polite">
+            <div class="feedback-copy">
+              <strong>Ready when you are.</strong>
+              <span>Run your code to check the order.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel scene-panel" aria-labelledby="scene-heading">
+          <div class="panel-head scene-panel-head">
+            <div>
+              <p class="panel-kicker">Live page</p>
+              <h3 id="scene-heading">Browser preview</h3>
+            </div>
+            <button class="btn ghost small" id="reset-scene" type="button">Reset scene</button>
+          </div>
+          <div class="browser-frame">
+            <div class="browser-chrome">
+              <span class="traffic-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="url-bar" id="browser-url">https://diners.example/</span>
+              <span class="scene-title-bar" id="browser-title">Diner</span>
+            </div>
+            <div class="scene-root" id="scene-root"></div>
+            <div class="inspector" id="inspector" title="Click an element to pin its markup; drag the bottom-right corner to resize.">
+              <span class="inspector-label" id="inspector-label">Inspector</span>
+              <code id="inspector-code">Hover over the page to inspect markup. Click to pin it.</code>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel console-panel" aria-labelledby="console-heading">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Kitchen pass</p>
+            <h3 id="console-heading">Console</h3>
+          </div>
+          <div class="console-actions">
+            <button class="btn ghost small console-toggle" id="java-realism-toggle" type="button" aria-pressed="false" hidden>Full Java</button>
+            <span class="console-status" id="console-status">waiting</span>
+          </div>
+        </div>
+        <pre class="console-output" id="console-output">Run a script to see output and the return value.</pre>
+        <div class="result-line" id="result-line"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/ruby.js"></script>
+  <script src="js/java-levels.js"></script>
+  <script src="js/java.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/verify.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
